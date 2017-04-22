@@ -1,0 +1,514 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+        href="https://github.com/sasaplus1/deepcopy.js#readme"
+
+    >deepcopy (v0.6.3)</a>
+</h1>
+<h4>deep copy for any data</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.deepcopy">module deepcopy</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.deepcopy.deepcopy">
+            function <span class="apidocSignatureSpan"></span>deepcopy
+            <span class="apidocSignatureSpan">(target)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">deepcopy.</span>copy</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">deepcopy.</span>polyfill</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.deepcopy.copy">module deepcopy.copy</a><ol>
+
+        <li>
+
+            <span class="apidocSignatureSpan">boolean <span class="apidocSignatureSpan">deepcopy.copy.</span>__esModule</span>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.deepcopy.copy.copy">
+            function <span class="apidocSignatureSpan">deepcopy.</span>copy
+            <span class="apidocSignatureSpan">(target, customizer)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.deepcopy.copy.copyCollection">
+            function <span class="apidocSignatureSpan">deepcopy.copy.</span>copyCollection
+            <span class="apidocSignatureSpan">(target, customizer)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.deepcopy.copy.copyValue">
+            function <span class="apidocSignatureSpan">deepcopy.copy.</span>copyValue
+            <span class="apidocSignatureSpan">(target)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.deepcopy.polyfill">module deepcopy.polyfill</a><ol>
+
+        <li>
+
+            <span class="apidocSignatureSpan">boolean <span class="apidocSignatureSpan">deepcopy.polyfill.</span>__esModule</span>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.deepcopy.polyfill.getKeys">
+            function <span class="apidocSignatureSpan">deepcopy.polyfill.</span>getKeys
+            <span class="apidocSignatureSpan">(obj)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.deepcopy.polyfill.getSymbols">
+            function <span class="apidocSignatureSpan">deepcopy.polyfill.</span>getSymbols
+            <span class="apidocSignatureSpan">(obj)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.deepcopy.polyfill.indexOf">
+            function <span class="apidocSignatureSpan">deepcopy.polyfill.</span>indexOf
+            <span class="apidocSignatureSpan">(array, s)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.deepcopy.polyfill.isBuffer">
+            function <span class="apidocSignatureSpan">deepcopy.polyfill.</span>isBuffer
+            <span class="apidocSignatureSpan">(obj)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.deepcopy" id="apidoc.module.deepcopy">module deepcopy</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.deepcopy.deepcopy" id="apidoc.element.deepcopy.deepcopy">
+        function <span class="apidocSignatureSpan"></span>deepcopy
+        <span class="apidocSignatureSpan">(target)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function deepcopy(target) {
+  var customizer = arguments.length &#x3c;= 1 || arguments[1] === void 0 ? defaultCustomizer : arguments[1];
+
+  if (target === null) {
+    // copy null
+    return null;
+  }
+
+  var resultValue = (0, _copy.copyValue)(target);
+
+  if (resultValue !== null) {
+    // copy some primitive types
+    return resultValue;
+  }
+
+  var resultCollection = (0, _copy.copyCollection)(target, customizer),
+      clone = resultCollection !== null ? resultCollection : target;
+
+  var visited = [target],
+      reference = [clone];
+
+  // recursively copy from collection
+  return recursiveCopy(target, customizer, clone, visited, reference);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.deepcopy.copy" id="apidoc.module.deepcopy.copy">module deepcopy.copy</a></h1>
+
+
+
+
+    <h2>
+        <a href="#apidoc.element.deepcopy.copy.copy" id="apidoc.element.deepcopy.copy.copy">
+        function <span class="apidocSignatureSpan">deepcopy.</span>copy
+        <span class="apidocSignatureSpan">(target, customizer)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function copy(target, customizer) {
+  var resultValue = copyValue(target);
+
+  if (resultValue !== null) {
+    return resultValue;
+  }
+
+  return copyCollection(target, customizer);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+  return new RegExp(regexpText.slice(1, slashIndex), regexpText.slice(slashIndex + 1));
+}
+
+if ((0, _polyfill.isBuffer)(target)) {
+  var buffer = new Buffer(target.length);
+
+  target.<span class="apidocCodeKeywordSpan">copy</span>(buffer);
+
+  return buffer;
+}
+
+var customizerResult = customizer(target);
+
+if (customizerResult !== void 0) {
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.deepcopy.copy.copyCollection" id="apidoc.element.deepcopy.copy.copyCollection">
+        function <span class="apidocSignatureSpan">deepcopy.copy.</span>copyCollection
+        <span class="apidocSignatureSpan">(target, customizer)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function copyCollection(target, customizer) {
+  if (typeof customizer !== &#x27;function&#x27;) {
+    throw new TypeError(&#x27;customizer is must be a Function&#x27;);
+  }
+
+  if (typeof target === &#x27;function&#x27;) {
+    var source = String(target);
+
+    // NOTE:
+    //
+    //   https://gist.github.com/jdalton/5e34d890105aca44399f
+    //
+    //   - https://gist.github.com/jdalton/5e34d890105aca44399f#gistcomment-1283831
+    //   - http://es5.github.io/#x15
+    //
+    //   native functions does not have prototype:
+    //
+    //       Object.toString.prototype  // =&#x3e; undefined
+    //       (function() {}).prototype  // =&#x3e; {}
+    //
+    //   but cannot detect native constructor:
+    //
+    //       typeof Object     // =&#x3e; &#x27;function&#x27;
+    //       Object.prototype  // =&#x3e; {}
+    //
+    //   and cannot detect null binded function:
+    //
+    //       String(Math.abs)
+    //         // =&#x3e; &#x27;function abs() { [native code] }&#x27;
+    //
+    //     Firefox, Safari:
+    //       String((function abs() {}).bind(null))
+    //         // =&#x3e; &#x27;function abs() { [native code] }&#x27;
+    //
+    //     Chrome:
+    //       String((function abs() {}).bind(null))
+    //         // =&#x3e; &#x27;function () { [native code] }&#x27;
+    if (/^\s*function\s*\S*\([^\)]*\)\s*{\s*\[native code\]\s*}/.test(source)) {
+      // native function
+      return target;
+    } else {
+      // user defined function
+      return new Function(&#x27;return &#x27; + String(source))();
+    }
+  }
+
+  var targetClass = toString.call(target);
+
+  if (targetClass === &#x27;[object Array]&#x27;) {
+    return [];
+  }
+
+  if (targetClass === &#x27;[object Object]&#x27; &#x26;&#x26; target.constructor === Object) {
+    return {};
+  }
+
+  if (targetClass === &#x27;[object Date]&#x27;) {
+    // NOTE:
+    //
+    //   Firefox need to convert
+    //
+    //   Firefox:
+    //     var date = new Date;
+    //     +date;            // 1420909365967
+    //     +new Date(date);  // 1420909365000
+    //     +new Date(+date); // 1420909365967
+    //
+    //   Chrome:
+    //     var date = new Date;
+    //     +date;            // 1420909757913
+    //     +new Date(date);  // 1420909757913
+    //     +new Date(+date); // 1420909757913
+    return new Date(target.getTime());
+  }
+
+  if (targetClass === &#x27;[object RegExp]&#x27;) {
+    // NOTE:
+    //
+    //   Chrome, Safari:
+    //     (new RegExp).source =&#x3e; &#x22;(?:)&#x22;
+    //
+    //   Firefox:
+    //     (new RegExp).source =&#x3e; &#x22;&#x22;
+    //
+    //   Chrome, Safari, Firefox:
+    //     String(new RegExp) =&#x3e; &#x22;/(?:)/&#x22;
+    var regexpText = String(target),
+        slashIndex = regexpText.lastIndexOf(&#x27;/&#x27;);
+
+    return new RegExp(regexpText.slice(1, slashIndex), regexpText.slice(slashIndex + 1));
+  }
+
+  if ((0, _polyfill.isBuffer)(target)) {
+    var buffer = new Buffer(target.length);
+
+    target.copy(buffer);
+
+    return buffer;
+  }
+
+  var customizerResult = customizer(target);
+
+  if (customizerResult !== void 0) {
+    return customizerResult;
+  }
+
+  return null;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.deepcopy.copy.copyValue" id="apidoc.element.deepcopy.copy.copyValue">
+        function <span class="apidocSignatureSpan">deepcopy.copy.</span>copyValue
+        <span class="apidocSignatureSpan">(target)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function copyValue(target) {
+  var targetType = typeof target;
+
+  // copy String, Number, Boolean, undefined and Symbol
+  // without null and Function
+  if (target !== null &#x26;&#x26; targetType !== &#x27;object&#x27; &#x26;&#x26; targetType !== &#x27;function&#x27;) {
+    return target;
+  }
+
+  return null;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.deepcopy.polyfill" id="apidoc.module.deepcopy.polyfill">module deepcopy.polyfill</a></h1>
+
+
+
+
+    <h2>
+        <a href="#apidoc.element.deepcopy.polyfill.getKeys" id="apidoc.element.deepcopy.polyfill.getKeys">
+        function <span class="apidocSignatureSpan">deepcopy.polyfill.</span>getKeys
+        <span class="apidocSignatureSpan">(obj)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function getKeys(obj) {
+  return Object.keys(obj);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.deepcopy.polyfill.getSymbols" id="apidoc.element.deepcopy.polyfill.getSymbols">
+        function <span class="apidocSignatureSpan">deepcopy.polyfill.</span>getSymbols
+        <span class="apidocSignatureSpan">(obj)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function getSymbols(obj) {
+  return Object.getOwnPropertySymbols(obj);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.deepcopy.polyfill.indexOf" id="apidoc.element.deepcopy.polyfill.indexOf">
+        function <span class="apidocSignatureSpan">deepcopy.polyfill.</span>indexOf
+        <span class="apidocSignatureSpan">(array, s)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function indexOf(array, s) {
+  if (toString.call(array) !== &#x27;[object Array]&#x27;) {
+    throw new TypeError(&#x27;array must be an Array&#x27;);
+  }
+
+  var i = void 0,
+      len = void 0,
+      value = void 0;
+
+  for (i = 0, len = array.length; i &#x3c; len; ++i) {
+    value = array[i];
+
+    // NOTE:
+    //
+    //   it is SameValue algorithm
+    //   http://stackoverflow.com/questions/27144277/comparing-a-variable-with-itself
+    //
+    // eslint-disable-next-line no-self-compare
+    if (value === s || value !== value &#x26;&#x26; s !== s) {
+      return i;
+    }
+  }
+
+  return -1;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.deepcopy.polyfill.isBuffer" id="apidoc.element.deepcopy.polyfill.isBuffer">
+        function <span class="apidocSignatureSpan">deepcopy.polyfill.</span>isBuffer
+        <span class="apidocSignatureSpan">(obj)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function isBuffer(obj) {
+  return Buffer.isBuffer(obj);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+&#x27;use strict&#x27;;
+
+exports.__esModule = true;
+var toString = Object.prototype.toString;
+
+var isBuffer = typeof Buffer !== &#x27;undefined&#x27; ? function isBuffer(obj) {
+return Buffer.<span class="apidocCodeKeywordSpan">isBuffer</span>(obj);
+} : function isBuffer() {
+// always return false in browsers
+return false;
+};
+
+var getKeys = typeof Object.keys === &#x27;function&#x27; ? function getKeys(obj) {
+return Object.keys(obj);
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
